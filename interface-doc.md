@@ -2,34 +2,6 @@
 
 # DB设计
 
-**User（用户）**
-
-| 字段        | 类型         | 备注 |
-| ----------- | ------------ | ---- |
-| UserId      | bigint       | PK   |
-| Username    | varchar(30)  |      |
-| Password    | varchar(500) |      |
-| Name        | varchar(50)  |      |
-| Email       | varchar(300) |      |
-| PhoneNum    | varchar(13)  |      |
-| Avatar      | text         |      |
-| Birthday    | date         |      |
-| Address     | varchar(500) |      |
-| BeginDate   | date         |      |
-| EndDate     | date         | Null |
-| PromoteDate | date         |      |
-| ModifyBy    | bigint       |      |
-| ModifyDate  | datetime     |      |
-
-**Role（角色）**
-
-| 字段        | 类型         | 备注 |
-| ----------- | ------------ | ---- |
-| RoleId      | bigint       | PK   |
-| Name        | varchar(300) |      |
-| Description | text         |      |
-| ModifyBy    | bigint       |      |
-| ModifyDate  | datetime     |      |
 
 **Menu（权限菜单）**
 
@@ -37,7 +9,7 @@
 | ----------- | ------------ | ---- |
 | MenuId      | bigint       | PK   |
 | Name        | varchar(300) |      |
-| Url         | varchar(300) |      |
+| Url         | varchar(300) | Null |
 | Path        | varchar(300) |      |
 | Src         | varchar(300) |      |
 | Component   | varchar(300) |      |
@@ -49,17 +21,38 @@
 | ModifyBy    | bigint       |      |
 | ModifyDate  | datetime     |      |
 
+**Role（角色）**
+
+| 字段        | 类型         | 备注 |
+| ----------- | ------------ | ---- |
+| RoleId      | bigint       | PK   |
+| Name        | varchar(300) |      |
+| Description | text         | Null |
+| ModifyBy    | bigint       |      |
+| ModifyDate  | datetime     |      |
+
+**User（用户）**
+
+| 字段        | 类型         | 备注 |
+| ----------- | ------------ | ---- |
+| UserId      | bigint       | PK   |
+| Username    | varchar(30)  |      |
+| Password    | varchar(500) |      |
+| Name        | varchar(50)  |      |
+| Email       | varchar(300) |      |
+| PhoneNum    | varchar(11)  |      |
+| Avatar      | text         | Null |
+| Birthday    | date         |      |
+| Address     | varchar(500) |      |
+| BeginDate   | date         |      |
+| EndDate     | date         | Null |
+| PromoteDate | date         |      |
+| ModifyBy    | bigint       |      |
+| ModifyDate  | datetime     |      |
+
+
+
 **链接表：**
-
-*UserRole*
-
-| 字段        | 类型     | 备注    |
-| ----------- | -------- | ------- |
-| UserId      | bigint   | PK---FK |
-| RoleId      | bigint   | PK---FK |
-| ApplyReason | text     |         |
-| ModifyBy    | bigint   |         |
-| ModifyDate  | datetime |         |
 
 *RoleMenu*
 
@@ -71,6 +64,16 @@
 | ModifyBy   | bigint   |         |
 | ModifyDate | datetime |         |
 
+
+*UserRole*
+
+| 字段        | 类型     | 备注    |
+| ----------- | -------- | ------- |
+| UserId      | bigint   | PK---FK |
+| RoleId      | bigint   | PK---FK |
+| ApplyReason | text     | Null    |
+| ModifyBy    | bigint   |         |
+| ModifyDate  | datetime |         |
 
 
 # 1、通用

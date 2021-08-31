@@ -190,7 +190,7 @@
 </template>
 
 <script>
-import { value, jobLevel } from "../../../api/path";
+import { value, jobLevel } from "../../../http/path";
 import { findRoute } from "../../../utils/route";
 export default {
   props: {
@@ -249,7 +249,7 @@ export default {
     },
     addDialogVisible(newVal, oldVal) {
       if (newVal) {
-        this.$axios({
+        this.$http({
           url: value.listJobLevelCode,
         }).then((res) => {
           this.jobLevelCodes = res.obj.jobLevelCodes;
@@ -258,7 +258,7 @@ export default {
     },
     editDialogVisible(newVal, oldVal) {
       if (newVal) {
-        this.$axios({
+        this.$http({
           url: value.listJobLevelCode,
         }).then((res) => {
           this.jobLevelCodes = res.obj.jobLevelCodes;
@@ -273,7 +273,7 @@ export default {
     initData() {
       if (this.activeTab == "jobLevelManage") {
         this.loadingInstance = this.$loading();
-        this.$axios({
+        this.$http({
           url: jobLevel.page,
           params: {
             pagaIndex: this.pagaIndex,
@@ -304,7 +304,7 @@ export default {
       this.$refs["addJobLevelForm"].validate((valid) => {
         if (valid) {
           this.loadingInstance = this.$loading();
-          this.$axios({
+          this.$http({
             url: jobLevel.add,
             method: "post",
             data: this.addJobLevel,
@@ -327,7 +327,7 @@ export default {
       })
         .then(() => {
           this.loadingInstance = this.$loading();
-          this.$axios({
+          this.$http({
             url: jobLevel.del,
             params: {
               id: data.id,
@@ -361,7 +361,7 @@ export default {
           this.multipleSelection.forEach((item) => {
             ids = ids + item.id + ",";
           });
-          this.$axios({
+          this.$http({
             url: jobLevel.del,
             params: {
               id: ids,
@@ -387,7 +387,7 @@ export default {
       this.$refs["editJobLevelForm"].validate((valid) => {
         if (valid) {
           this.loadingInstance = this.$loading();
-          this.$axios({
+          this.$http({
             url: jobLevel.edit,
             method: "post",
             data: this.editJobLevel,

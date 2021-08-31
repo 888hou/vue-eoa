@@ -1,13 +1,3 @@
-// export const paths = Object.freeze({
-//   captcha: {
-//     getCaptchaBase64: 'api/captcha/getCaptchaBase64'
-//   },
-//   user: {
-//     login: 'api/user/login',
-//     getUserMenus: 'api/user/getUserMenus'
-//   }
-// })
-
 // DB中维护的基础数据
 export const value = Object.freeze({
   listJobLevelCode: 'api/value/listJobLevelCode'

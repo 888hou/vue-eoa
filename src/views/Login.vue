@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { captcha, user } from "../api/path";
+import { captcha, user } from "../http/path";
 
 export default {
   data() {
@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     getCaptchaSrc() {
-      this.$axios({
+      this.$http({
         url: captcha.getCaptchaBase64,
         params: {
           guid: this.loginForm.captchaGuid,
@@ -111,7 +111,7 @@ export default {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true;
-          this.$axios({
+          this.$http({
             url: user.login,
             method: "post",
             data: this.loginForm,

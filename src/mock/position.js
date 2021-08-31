@@ -1,5 +1,5 @@
 import Mock from "mockjs";
-import { position } from "../api/path";
+import { position } from "../http/path";
 import { getQueryVariable } from "../utils/url";
 
 const Random = Mock.Random;

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { user } from "../api/path";
+import { user } from "../http/path";
 
 export default {
   data() {
@@ -53,7 +53,7 @@ export default {
         type: "warning",
       })
         .then(() => {
-          this.$axios({
+          this.$http({
             url: user.logout,
             method: "post",
           });

@@ -10,9 +10,9 @@ import 'font-awesome/css/font-awesome.css'
 
 import '@/assets/scss/index.scss';
 
-import axios from './api/http';
+import http from './http/http';
 
-import { initMenu, getUserInfo } from './api/user';
+import { initMenu, getUserInfo } from './http/user';
 
 // 开发环境下使用mockjs模拟数据
 // process.env.Mock && require('./mock/index.js');
@@ -20,7 +20,7 @@ require('./mock/index.js');
 
 Vue.config.productionTip = true
 
-Vue.prototype.$axios = axios
+Vue.prototype.$http = http
 
 Vue.use(ElementUI);
 

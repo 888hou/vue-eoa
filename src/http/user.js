@@ -1,4 +1,4 @@
-import axios from './http';
+import http from './http';
 import { user } from './path';
 import { formatRoutes } from '../utils/route';
 
@@ -6,7 +6,7 @@ export const initMenu = (router, store) => {
   if (store.state.routes.length > 0) {
     return;
   }
-  axios({
+  http({
     url: user.getUserMenus,
     method: 'post'
   }).then(res => {
@@ -23,7 +23,7 @@ export const initMenu = (router, store) => {
 
 export const getUserInfo = () => {
   if (!window.sessionStorage.getItem('userInfo')) {
-    return axios({
+    return http({
       url: user.getUserInfo,
       method: 'post'
     }).then(res => {

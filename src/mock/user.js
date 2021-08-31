@@ -1,4 +1,4 @@
-import { user } from "../api/path";
+import { user } from "../http/path";
 import Mock from "mockjs";
 import { getQueryVariable } from 'utils/url'
 import { json2Obj } from 'utils/json'

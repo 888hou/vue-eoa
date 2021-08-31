@@ -3,9 +3,11 @@ import { Message } from 'element-ui';
 import { HttpStatusCode, ResponseCode } from './variable'
 import router from '../router'
 
+// 创建axios实例
+const http = axios.create();
 
 // 请求拦截器
-axios.interceptors.request.use(config => {
+http.interceptors.request.use(config => {
   if (window.sessionStorage.getItem('authToken')) {
     config.headers['Authorization'] = window.sessionStorage.getItem('authToken')
   }
@@ -15,7 +17,7 @@ axios.interceptors.request.use(config => {
 })
 
 // 响应拦截器
-axios.interceptors.response.use(success => {
+http.interceptors.response.use(success => {
   if (success.status && (success.status == HttpStatusCode.OK || success.status == HttpStatusCode.Accepted)) {
     // 业务逻辑码
     switch (success.data.code) {
@@ -68,4 +70,4 @@ axios.interceptors.response.use(success => {
 })
 
 
-export default axios;
+export default http;

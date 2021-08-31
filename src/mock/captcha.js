@@ -1,5 +1,5 @@
 import Mock from "mockjs";
-import { captcha } from "../api/path";
+import { captcha } from "../http/path";
 import { getQueryVariable } from "../utils/url";
 
 const Random = Mock.Random;

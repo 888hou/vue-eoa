@@ -172,7 +172,7 @@
 </template>
 
 <script>
-import { position } from "../../../api/path";
+import { position } from "../../../http/path";
 import { findRoute } from "../../../utils/route";
 export default {
   props: {
@@ -242,7 +242,7 @@ export default {
     initData() {
       if (this.activeTab == "posManage") {
         this.loadingInstance = this.$loading();
-        this.$axios({
+        this.$http({
           url: position.page,
           params: {
             pagaIndex: this.pagaIndex,
@@ -273,7 +273,7 @@ export default {
       this.$refs["addPositionForm"].validate((valid) => {
         if (valid) {
           this.loadingInstance = this.$loading();
-          this.$axios({
+          this.$http({
             url: position.add,
             method: "post",
             data: this.addPosition,
@@ -292,7 +292,7 @@ export default {
       this.$refs["editPositionForm"].validate((valid) => {
         if (valid) {
           this.loadingInstance = this.$loading();
-          this.$axios({
+          this.$http({
             url: position.edit,
             method: "post",
             data: this.editPosition,
@@ -315,7 +315,7 @@ export default {
       })
         .then(() => {
           this.loadingInstance = this.$loading();
-          this.$axios({
+          this.$http({
             url: position.del,
             params: {
               id: data.id,
@@ -353,7 +353,7 @@ export default {
           this.multipleSelection.forEach((item) => {
             ids = ids + item.id + ",";
           });
-          this.$axios({
+          this.$http({
             url: position.del,
             params: {
               id: ids,

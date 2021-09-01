@@ -3,6 +3,13 @@ export const value = Object.freeze({
   listJobLevelCode: 'api/value/listJobLevelCode'
 })
 
+export const menu = Object.freeze({
+  listMenu: {
+    url: '/api/Menu/ListMenu',
+    method: 'get'
+  }
+})
+
 export const captcha = Object.freeze({
   getCaptchaBase64: 'api/captcha/getCaptchaBase64'
 })

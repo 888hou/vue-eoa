@@ -4,7 +4,9 @@ import { HttpStatusCode, ResponseCode } from './variable'
 import router from '../router'
 
 // 创建axios实例
-const http = axios.create();
+const http = axios.create({
+  baseURL:"https://localhost:5001/"
+});
 
 // 请求拦截器
 http.interceptors.request.use(config => {

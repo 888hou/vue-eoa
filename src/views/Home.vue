@@ -1,26 +1,24 @@
 <template>
-  <div>
+  <el-container class="main-container">
+    <el-header class="main-header-wrapper">
+      <main-header></main-header>
+    </el-header>
     <el-container>
-      <el-header class="main-header-wrapper">
-        <main-header></main-header>
-      </el-header>
-      <el-container>
-        <el-aside width="200px">
-          <aside-main-menu></aside-main-menu>
-        </el-aside>
-        <el-main>
-          <main-bread-crumb
-            v-if="$router.currentRoute.path != '/home'"
-            :current-route="$router.currentRoute.name"
-          ></main-bread-crumb>
-          <home-content v-else></home-content>
-          <router-view />
-        </el-main>
-      </el-container>
+      <el-aside width="280px" class="main-menu">
+        <aside-main-menu></aside-main-menu>
+      </el-aside>
+      <el-main class="main-content">
+        <main-bread-crumb
+          v-if="$router.currentRoute.path != '/home'"
+          :current-route="$router.currentRoute.name"
+        ></main-bread-crumb>
+        <home-content v-else></home-content>
+        <router-view />
+      </el-main>
     </el-container>
-  </div>
+  </el-container>
 </template>
-
+a
 <script>
 import AsideMainMenu from "../components/AsideMainMenu.vue";
 import MainHeader from "../components/MainHeader.vue";
@@ -40,9 +38,6 @@ export default {
     routes() {
       return this.$store.state.routes;
     },
-    // userInfo() {
-    //   return JSON.parse(window.sessionStorage.getItem("userInfo"));
-    // },
   },
   mounted() {
     setTimeout(() => {
@@ -55,8 +50,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main-menu {
+  min-height: calc(100vh - 70px);
+  background-color: #fff;
+}
+
+.main-content {
+  background-color: #fff;
+  margin: 0 10px;
+  min-height: calc(100vh - 70px);
+}
+
 .main-header-wrapper {
   display: flex;
+  margin-bottom: 10px;
   background-color: $button;
   align-items: center;
 }

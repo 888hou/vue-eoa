@@ -13,6 +13,12 @@
       <el-tab-pane label="奖惩规则" name="ecManage">
         <ec-manage></ec-manage>
       </el-tab-pane>
+      <el-tab-pane label="权限菜单管理" name="menuManage">
+        <menu-manage></menu-manage>
+      </el-tab-pane>
+      <el-tab-pane label="角色管理" name="roleManage">
+        <role-manage></role-manage>
+      </el-tab-pane>
       <el-tab-pane label="权限管理" name="permissManage">
         <permiss-manage></permiss-manage>
       </el-tab-pane>
@@ -26,9 +32,19 @@ import PosManage from "../../components/sys/basic/PosManage";
 import JobLevelManage from "../../components/sys/basic/JobLevelManage";
 import EcManage from "../../components/sys/basic/EcManage";
 import PermissManage from "../../components/sys/basic/PermissManage";
+import MenuManage from "../../components/sys/basic/MenuManage";
+import RoleManage from "../../components/sys/basic/RoleManage";
 
 export default {
-  components: { DepManage, PosManage, JobLevelManage, EcManage, PermissManage },
+  components: {
+    DepManage,
+    PosManage,
+    JobLevelManage,
+    EcManage,
+    MenuManage,
+    RoleManage,
+    PermissManage,
+  },
   data() {
     return {
       activeTab: "jobLevelManage",

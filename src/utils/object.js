@@ -1,4 +1,4 @@
-import { isObject } from "./type-check"
+import { isObject, isNull } from "./type-check"
 
 /**
  * 映射拷贝对象
@@ -8,7 +8,7 @@ import { isObject } from "./type-check"
  */
 export function mapCopy(obj, copyObj) {
   for (let key in obj) {
-    if (isObject(obj[key])) {
+    if (isObject(obj[key]) && !isNull(obj[key])) {
       mapCopy(obj[key], copyObj[key]);
     } else {
       obj[key] = copyObj[key];

@@ -5,3 +5,7 @@ export function isObject(value) {
 export function isArray(value) {
   return typeof Array.isArray(value);
 }
+
+export function isNull(value) {
+  return value === null;
+}

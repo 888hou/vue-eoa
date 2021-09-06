@@ -66,7 +66,7 @@ http.interceptors.response.use(success => {
         }
     }
   } else {
-    Message.error({ message: '未知错误!' });
+    Message.error({ message: '未知错误' });
   }
   return;
 })

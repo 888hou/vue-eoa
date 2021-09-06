@@ -4,6 +4,9 @@
       <el-aside width="300px">
         <el-card class="box-card">
           <div slot="header" class="tool-bar">
+            <span class="operate-icon-button" @click="addChildNode"
+              ><i class="fa fa-plus"></i
+            ></span>
             <span class="operate-icon-button" @click="refreshWholeTree"
               ><i class="fa fa-refresh"></i
             ></span>
@@ -15,7 +18,9 @@
             ></span>
           </div>
           <el-tree
+            ref="menuTree"
             :data="treeData"
+            node-key="menuId"
             :props="defaultProps"
             @node-click="handleNodeClick"
           ></el-tree>
@@ -31,6 +36,9 @@
         >
           <el-form-item label="ID">
             <el-input v-model="menu.menuId" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="父节点">
+            <el-input v-model="parentDisplayName" disabled></el-input>
           </el-form-item>
           <el-form-item label="名称" prop="name">
             <el-input v-model="menu.name"></el-input>
@@ -60,7 +68,18 @@
             <el-switch v-model="menu.enabled"></el-switch>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="handleSave">保存</el-button>
+            <el-button
+              type="primary"
+              @click="handleSave"
+              :disabled="saveBtnDisabled"
+              >保存</el-button
+            >
+            <el-button
+              type="danger"
+              @click="handleDel"
+              :disabled="delBtnDisabled"
+              >删除</el-button
+            >
             <el-button>取消</el-button>
           </el-form-item>
         </el-form>
@@ -81,8 +100,9 @@ export default {
         children: "children",
         label: "name",
       },
+      parentDisplayName: "", // 父节点的展示名称
       menu: {
-        menuId: 0,
+        menuId: null,
         name: "",
         url: "",
         path: "",
@@ -90,9 +110,9 @@ export default {
         component: "",
         iconCls: "",
         keepAlive: false,
-        requireAuth: true,
-        parentId: 0,
-        enabled: true,
+        requireAuth: false,
+        parentId: null,
+        enabled: false,
       },
       rules: {
         name: [
@@ -122,6 +142,20 @@ export default {
     };
   },
 
+  computed: {
+    // 是否为根节点
+    isRootNode() {
+      return this.menu.menuId === 1;
+    },
+    // 保存按钮是否禁用
+    saveBtnDisabled() {
+      return this.isRootNode;
+    },
+    delBtnDisabled() {
+      return this.isRootNode || this.menu.menuId <= 0;
+    },
+  },
+
   mounted() {
     this.$http({
       ...menu.listMenu,
@@ -131,6 +165,36 @@ export default {
   },
 
   methods: {
+    // 添加子节点
+    addChildNode() {
+      let id = this.$refs.menuTree.getCurrentKey();
+      if (!id) {
+        this.$message({
+          type: "warning",
+          message: "请先选择一个节点，再点击 + 按钮",
+        });
+      } else {
+        this.$http({
+          ...menu.getMenuById,
+          params: {
+            id,
+          },
+        }).then((res) => {
+          // 接口返回Null 提示父节点不存在
+          if (!res.obj) {
+            this.$message({
+              type: "error",
+              message: "id:" + id + " 的菜单节点不存在或被删除",
+            });
+          } else {
+            // 重置表单栏位
+            this.$refs["menu"].resetFields();
+            this.menu.menuId = null;
+            this.setparentDisplayName(res.obj);
+          }
+        });
+      }
+    },
     // 刷新全树
     refreshWholeTree() {
       console.log("refresh whole tree");
@@ -145,13 +209,51 @@ export default {
     },
     // 树节点点击事件
     handleNodeClick(node) {
-      // this.menu = { ...node };
       mapCopy(this.menu, node);
-      console.log(this.menu);
     },
+    // 保存事件
     handleSave() {
-      console.log(this.menu);
+      // 表单校验
+      this.$refs["menu"].validate((valid) => {
+        if (valid) {
+          // 若menuId为Null 则为新增事件
+          if (this.menu.menuId) {
+            this.addMenu();
+          } else {
+            // 否则为编辑事件
+            this.editMenu();
+          }
+        } else {
+          this.$message({
+            type: "error",
+            message: "请按要求输入所有必填字段",
+          });
+          return false;
+        }
+      });
     },
+    handleDel() {
+      console.log("delete node");
+    },
+    // 设置父节点展示名称
+    setparentDisplayName(menu) {
+      this.parentDisplayName = menu.menuId + "-" + menu.name;
+    },
+    addMenu() {
+      // 父节点不能为空
+      if (!this.menu.parentId) {
+        this.$message({
+          type: "error",
+          message: "请先选择父节点",
+        });
+      } else {
+        this.$http({
+          ...menu.add,
+          data: this.menu,
+        }).then((res) => {});
+      }
+    },
+    editMenu() {},
   },
 };
 </script>
@@ -162,7 +264,7 @@ export default {
 }
 
 .operate-icon-button {
-  margin: 0 6px;
+  margin: 0 8px;
   cursor: pointer;
 }
 

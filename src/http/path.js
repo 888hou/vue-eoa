@@ -4,6 +4,14 @@ export const value = Object.freeze({
 })
 
 export const menu = Object.freeze({
+  add: {
+    url: '/api/Menu/add',
+    method: 'post'
+  },
+  getMenuById: {
+    url: '/api/Menu/getMenuById',
+    method: 'get'
+  },
   listMenu: {
     url: '/api/Menu/ListMenu',
     method: 'get'

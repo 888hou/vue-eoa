@@ -71,6 +71,7 @@
 
 <script>
 import { menu } from "../../../http/path";
+import { mapCopy } from "../../../utils/object";
 
 export default {
   data() {
@@ -90,7 +91,7 @@ export default {
         iconCls: "",
         keepAlive: false,
         requireAuth: true,
-        parentId: 1,
+        parentId: 0,
         enabled: true,
       },
       rules: {
@@ -144,7 +145,9 @@ export default {
     },
     // 树节点点击事件
     handleNodeClick(node) {
-      this.menu = { ...node };
+      // this.menu = { ...node };
+      mapCopy(this.menu, node);
+      console.log(this.menu);
     },
     handleSave() {
       console.log(this.menu);
